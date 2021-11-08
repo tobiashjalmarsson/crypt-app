@@ -8,6 +8,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/*
+TODO Add JWT authentication
+TODO Rework notes model to be associated with a User
+TODO Add possibility of shared notes between groups
+TODO Add email to send invites to users
+TODO Start working on React<Typescript> Frontend
+*/
+
+
 func main() {
 	r := gin.Default()
 
