@@ -49,7 +49,7 @@ func CreateNote(c *gin.Context) {
 
 }
 
-// GET /note/:id
+// GET /notes/:id
 // Get a specific note based on id
 /*
 {
@@ -65,4 +65,52 @@ func FindNote(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": note})
+}
+
+/*
+PATCH /notes/:id
+Update note with new title, author and content
+{
+	"title": string,
+	"author": string,
+	"content": string,
+}
+*/
+
+func UpdateNote(c *gin.Context) {
+
+	// First we attempt to get the model
+	var note models.Note
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&note).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Note not found"})
+		return
+	}
+
+	// Check if the data is correctly formated
+	var input models.UpdateNoteInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	}
+
+	models.DB.Model(&note).Updates(input)
+
+	c.JSON(http.StatusOK, gin.H{"data": note})
+}
+
+/*
+DELETE /books/:id
+remove book with id == :id
+*/
+func DeleteBook(c *gin.Context) {
+	// Get the note if there is one in the database
+	// with the corresponding ID
+	var note models.Note
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&note).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Note not found"})
+		return
+	}
+
+	models.DB.Delete(&note)
+
+	c.JSON(http.StatusOK, gin.H{"data": true})
 }

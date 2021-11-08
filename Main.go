@@ -17,6 +17,8 @@ func main() {
 
 	r.GET("/notes", controllers.FindNotes)
 	r.GET("/notes/:id", controllers.FindNote)
+	r.PATCH("/notes/:id", controllers.UpdateNote)
+	r.DELETE("/notes/:id", controllers.DeleteBook)
 	r.POST("/notes", controllers.CreateNote)
 
 	models.ConnectDatabase()
