@@ -16,7 +16,6 @@ TODO Add email to send invites to users
 TODO Start working on React<Typescript> Frontend
 */
 
-
 func main() {
 	r := gin.Default()
 
@@ -31,13 +30,15 @@ func main() {
 	r.DELETE("/notes/:id", controllers.DeleteBook)
 	r.POST("/notes", controllers.CreateNote)
 
-	// Auth routes
+	// User routes
 	r.GET("/users", controllers.FindUsers)
 	r.GET("/users/:id", controllers.FindUser)
 	r.POST("/users", controllers.CreateUser)
 	r.PATCH("/users/:id", controllers.UpdateUser)
 	r.DELETE("/users/:id", controllers.DeleteUser)
 
+	// Login routes
+    r.POST("/login", controllers.LoginUser)
 	models.ConnectDatabase()
 
 	r.Run()
