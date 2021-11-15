@@ -39,6 +39,10 @@ func main() {
 
 	// Login routes
     r.POST("/login", controllers.LoginUser)
+
+
+    // Testroutes
+    r.POST("/sign", controllers.SignToken)
 	models.ConnectDatabase()
 
 	r.Run()

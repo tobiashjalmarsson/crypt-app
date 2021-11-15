@@ -6,7 +6,6 @@ import (
 	"github/tobiashjalmarsson/crypt-app/utils"
 
 	"net/http"
-    "fmt"
 
 	"github.com/gin-gonic/gin"
 	"github/tobiashjalmarsson/crypt-app/service"
@@ -16,6 +15,17 @@ import (
 
 // Move to enviromental variable, 16 bytes
 var key = []byte("0123456789012345")
+
+// Controllers to test the JWT functions
+
+func SignToken(c *gin.Context){
+    token, err := service.CreateToken()
+    if err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"data": "couldent create token"})
+        return
+    }
+    c.JSON(http.StatusAccepted, gin.H{"token" : token})
+}
 
 
 func LoginUser(c *gin.Context){
@@ -29,12 +39,7 @@ func LoginUser(c *gin.Context){
         c.JSON(http.StatusBadRequest, gin.H{"error": "User Not Found"})
         return
     }
-    fmt.Println("The found user is:")
-    fmt.Println(user)
 
-    fmt.Println(submittedInfo)
-    fmt.Println("Inside Login controller")
-    fmt.Println(submittedInfo)
     if submittedInfo.LogIn(user.Email, user.Password) {
         c.JSON(http.StatusAccepted, gin.H{"data" : true})
     } else {
