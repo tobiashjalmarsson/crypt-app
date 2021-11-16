@@ -24,3 +24,23 @@ func CreateToken() (string, error) {
     return tokenString, err
 }
 
+
+func ValidateToken(tokenString string) (interface{}, error){
+    SampleSecret := []byte("secret")
+    token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error){
+        // Don't Forget to validate the alg is what you expect
+        if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+            return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+        }
+        return SampleSecret, nil
+    })
+    if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+        fmt.Println("WAS OK")
+        fmt.Println(claims["foo"], claims["nbf"])
+        return claims, nil
+    } else {
+        fmt.Println(err)
+        return claims, nil
+    }
+
+}

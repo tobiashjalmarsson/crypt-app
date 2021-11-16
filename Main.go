@@ -24,18 +24,23 @@ func main() {
 	})
 
 	// Note routes
-	r.GET("/notes", controllers.FindNotes)
-	r.GET("/notes/:id", controllers.FindNote)
-	r.PATCH("/notes/:id", controllers.UpdateNote)
-	r.DELETE("/notes/:id", controllers.DeleteBook)
-	r.POST("/notes", controllers.CreateNote)
-
+    notesGroup := r.Group("/notes")
+    {
+        notesGroup.GET("", controllers.FindNotes)
+        notesGroup.GET("/:id", controllers.FindNote)
+        notesGroup.PATCH("/:id", controllers.UpdateNote)
+        notesGroup.DELETE("/:id", controllers.DeleteBook)
+        notesGroup.POST("", controllers.CreateNote)
+    }
 	// User routes
-	r.GET("/users", controllers.FindUsers)
-	r.GET("/users/:id", controllers.FindUser)
-	r.POST("/users", controllers.CreateUser)
-	r.PATCH("/users/:id", controllers.UpdateUser)
-	r.DELETE("/users/:id", controllers.DeleteUser)
+    userGroup := r.Group("/users")
+    {
+        userGroup.GET("", controllers.FindUsers)
+        userGroup.GET("/:id", controllers.FindUser)
+        userGroup.POST("", controllers.CreateUser)
+        userGroup.PATCH("/:id", controllers.UpdateUser)
+        userGroup.DELETE("/:id", controllers.DeleteUser)
+    }
 
 	// Login routes
     r.POST("/login", controllers.LoginUser)
@@ -43,6 +48,7 @@ func main() {
 
     // Testroutes
     r.POST("/sign", controllers.SignToken)
+    r.POST("/validate", controllers.ValidateToken)
 	models.ConnectDatabase()
 
 	r.Run()

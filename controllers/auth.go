@@ -5,10 +5,15 @@ import (
 
 	"github/tobiashjalmarsson/crypt-app/utils"
 
+    "strings"
+
+	"fmt"
+
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github/tobiashjalmarsson/crypt-app/service"
+
+	"github.com/gin-gonic/gin"
 )
 
 // Variables for controllers.auth
@@ -27,6 +32,20 @@ func SignToken(c *gin.Context){
     c.JSON(http.StatusAccepted, gin.H{"token" : token})
 }
 
+func ValidateToken(c *gin.Context){
+    fmt.Println("Inside ValidateToken")
+    authHeader := c.Request.Header["Authorization"]
+    parsedHeader := strings.Fields(authHeader[0])[1]
+    fmt.Println("Header is: ", authHeader)
+    fmt.Println("Header content is: ", parsedHeader)
+    claims, err := service.ValidateToken(parsedHeader)
+    if err != nil {
+        fmt.Println("Error: ", err.Error())
+    } else {
+        fmt.Println("Claims are: ", claims)
+    }
+    c.JSON(http.StatusAccepted, gin.H{"data" : "From validate token"})
+}
 
 func LoginUser(c *gin.Context){
     var submittedInfo service.LoginInfo
