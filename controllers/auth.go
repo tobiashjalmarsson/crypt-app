@@ -24,7 +24,7 @@ var key = []byte("0123456789012345")
 // Controllers to test the JWT functions
 
 func SignToken(c *gin.Context){
-    token, err := service.CreateToken()
+    token, err := service.CreateToken(999999)
     if err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"data": "couldent create token"})
         return
@@ -60,7 +60,17 @@ func LoginUser(c *gin.Context){
     }
 
     if submittedInfo.LogIn(user.Email, user.Password) {
-        c.JSON(http.StatusAccepted, gin.H{"data" : true})
+        token, err := service.CreateToken(int(user.ID))
+        if err != nil {
+            c.JSON(http.StatusBadRequest, gin.H{"data": "Coulden't create token"})
+            return
+        }
+        c.JSON(http.StatusAccepted, gin.H{
+            "token": token,
+            "accepted": true,
+        })
+        return
+
     } else {
         c.JSON(http.StatusBadRequest, gin.H{"data" : false})
     }

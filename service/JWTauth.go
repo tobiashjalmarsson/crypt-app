@@ -7,15 +7,15 @@ import (
 )
 
 
-func CreateToken() (string, error) {
-    SampleSecret := []byte("secret")
 
-    // First we create the token,
-    // TODO Add custom claims later
-    token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-        "foo" : "bar",
-        "nbf" : time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
-    })
+func CreateToken(user_id int) (string, error) {
+    SampleSecret := []byte("secret")
+    claims := jwt.MapClaims{}
+    claims["authorized"] = true
+    claims["user_id"] = user_id
+    claims["exp"] = time.Now().Add(time.Hour*48).Unix()
+
+    token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
     // Sign the token and get the completeString using the secret
     // TODO Move the secret to an enviroment variable
@@ -40,6 +40,7 @@ func ValidateToken(tokenString string) (interface{}, error){
         return claims, nil
     } else {
         fmt.Println(err)
+        fmt.Println("WAS NOT APPROVED")
         return claims, nil
     }
 

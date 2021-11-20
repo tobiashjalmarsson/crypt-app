@@ -9,7 +9,7 @@ import (
 )
 
 /*
-TODO Add JWT authentication
+TODO Create middleware for token then start with frontend
 TODO Rework notes model to be associated with a User
 TODO Add possibility of shared notes between groups
 TODO Add email to send invites to users
