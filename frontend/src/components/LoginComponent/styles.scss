@@ -1,3 +1,40 @@
 form {
-    color: blue;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    text-indent: 2%;
+    margin: 2% 0;
+    height: 4vh;
+    border-radius: 10px;
+    border: none;
+}
+
+div {
+    margin: 0 auto;
+    width: 90%;
+    padding: 5% 0;
+}
+
+button {
+    margin: 0 auto;
+    height: 3vh;
+    width: 80%;
+    background: white;
+    border: none;
+    border-radius: 15px;
+}
+
+#changeLogin {
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    background: none;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+#navigateP {
+    text-decoration: underline;
 }

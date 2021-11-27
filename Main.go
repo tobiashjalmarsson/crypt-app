@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+    "github.com/gin-contrib/cors"
 )
 
 /*
@@ -18,6 +19,7 @@ TODO Start working on React<Typescript> Frontend
 
 func main() {
 	r := gin.Default()
+    r.Use(cors.Default())
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"data": "hello world"})

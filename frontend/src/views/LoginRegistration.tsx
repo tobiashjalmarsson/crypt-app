@@ -1,12 +1,19 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import LoginComponent from '../components/LoginComponent/LoginComponent'
+import RegisterComponent from '../components/LoginComponent/RegisterComponent'
 
 
 const LoginRegistration: FC = () => {
+    // Determines if we display the login or register component
+    const [login, setLogin] = useState(true)
+
     return(
         <>
-            <h2>From LoginRegistration</h2>
-            <LoginComponent />
+            {login ?
+            <LoginComponent login={login} setLogin={setLogin} />
+            :
+            <RegisterComponent login={login} setLogin={setLogin}/>
+            }
         </>
     )
 }

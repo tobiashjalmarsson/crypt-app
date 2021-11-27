@@ -50,11 +50,15 @@ func ValidateToken(c *gin.Context){
 func LoginUser(c *gin.Context){
     var submittedInfo service.LoginInfo
     if err := c.ShouldBindJSON(&submittedInfo); err != nil {
+        fmt.Println("ERROR: ", err.Error())
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error})
         return
     }
+    fmt.Println("Submitted Info: ", submittedInfo)
     var user models.User
     if err := models.DB.Where("email = ?", submittedInfo.Email).First(&user).Error; err != nil {
+        fmt.Println("NO USER")
+        fmt.Println(err.Error())
         c.JSON(http.StatusBadRequest, gin.H{"error": "User Not Found"})
         return
     }
@@ -66,8 +70,9 @@ func LoginUser(c *gin.Context){
             return
         }
         c.JSON(http.StatusAccepted, gin.H{
+            "id" : user.ID,
+            "email": user.Email,
             "token": token,
-            "accepted": true,
         })
         return
 
