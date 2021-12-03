@@ -9,12 +9,20 @@ input {
     height: 4vh;
     border-radius: 10px;
     border: none;
+    @media (min-width: 600px) {
+        height: 5vh;
+        width: 20vw;
+        margin: 1vh auto;
+    }
 }
 
 div {
     margin: 0 auto;
     width: 90%;
     padding: 5% 0;
+    @media (min-width: 600px) {
+        width: 60vw;
+    }
 }
 
 button {
@@ -24,6 +32,10 @@ button {
     background: white;
     border: none;
     border-radius: 15px;
+    @media (min-width: 600px){
+        height: 5vh;
+        width: 10vw;
+    }
 }
 
 #changeLogin {

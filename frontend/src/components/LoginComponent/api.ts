@@ -2,7 +2,8 @@ import axios from 'axios'
 
 const urls = {
     getUsers : "http://localhost:8080/users",
-    login: "http://localhost:8080/login"
+    login: "http://localhost:8080/login",
+    register: "http://localhost:8080/users"
 }
 
 interface User {
@@ -34,7 +35,23 @@ export const APICallLogin = async (email: string, password: string) : Promise<bo
     }
 }
 
-export const APICallRegister = (username: string, email: string, password: string) : boolean => {
-    console.log("test")
-    return true
+export const APICallRegister = async (Username: string, Password: string) : Promise<boolean> => {
+    /* Returns false when username already exists or when there is a
+     * servererror
+     * TODO : Make registration more robust
+     * */
+    try {
+        const response = await axios.post(urls.register, {
+            email: Username,
+            password: Password,
+        })
+        console.log(response.data)
+        if (response.status === 200) {
+            return true
+        } else {
+            return false
+        }
+    } catch (e) {
+        return false
+    }
 }

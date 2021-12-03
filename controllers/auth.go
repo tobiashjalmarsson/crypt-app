@@ -106,13 +106,17 @@ body
 func CreateUser(c *gin.Context) {
 	var input models.CreateUserInput
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid data"})
 		return
 	}
-
-	user := models.User{Email: input.Email, Password: utils.Encrypt(key, input.Password)}
-	models.DB.Create(&user)
-	c.JSON(http.StatusOK, gin.H{"data": user})
+    var oldUser models.User
+    if err := models.DB.Where("Email = ?", input.Email).First(&oldUser).Error; err != nil {
+        user := models.User{Email: input.Email, Password: utils.Encrypt(key, input.Password)}
+	    models.DB.Create(&user)
+	    c.JSON(http.StatusOK, gin.H{"data": user})
+    } else {
+        c.JSON(http.StatusBadRequest, gin.H{"error" : "username already exists"})
+    }
 }
 
 /*
