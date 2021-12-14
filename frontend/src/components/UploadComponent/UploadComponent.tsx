@@ -1,8 +1,10 @@
 import {FC, useState} from 'react'
 import './styles.scss'
+import { getBase64, encrypt, decrypt } from '../../utils/encryption'
 
 const UploadComponent: FC = () => {
-    const [passkey, setPasskey] = useState("")
+    const [file64, setFile64] = useState<any>("")
+    const [passkey, setPasskey] = useState<string>("")
     const [selectedFile, setSelectedFile] = useState({
         name: "",
         size: 0,
@@ -15,9 +17,25 @@ const UploadComponent: FC = () => {
         console.log("Submitting file")
     }
 
-    const handleFileChange = (e : any) => {
+    const handleFileChange = async (e : any) => {
+        try {
+        console.log("original file is")
+        console.log(e.target.files[0])
         setSelectedFile(e.target.files[0])
         setIsFilePicked(true)
+        console.log("base64 file is")
+        const newfile = await getBase64(e.target.files[0]) as string
+        console.log(newfile)
+        console.log("type: ", typeof newfile )
+        setFile64(newfile)
+        
+        console.log("Check so it remains the same")
+        const encryptedfile = encrypt(newfile, "hej")
+        const decryptedfile = decrypt(encryptedfile, "hej")
+        console.log(decryptedfile === newfile)
+        } catch (err){
+            console.log("ERR OCCURED")
+        }
     }
 
     const updatePasskey = (e : any) => {
