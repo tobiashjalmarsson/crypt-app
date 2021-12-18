@@ -1,5 +1,6 @@
 import {FC, useState} from 'react'
 import './styles.scss'
+import '../../index.scss'
 import { getBase64, encrypt, decrypt } from '../../utils/encryption'
 
 const UploadComponent: FC = () => {
@@ -54,20 +55,20 @@ const UploadComponent: FC = () => {
     }
 
     return (
-        <div className="mainContainer">
+        <form className="uploadForm">
             <h2>Upload</h2>
             { isFilePicked &&
-            <div id="informationContainer">
+            <>
                 <p>Name: {selectedFile.name}</p>
                 <p>Type: {selectedFile.type}</p>
                 <p>Size (Bytes): {selectedFile.size}</p> 
                 <button onClick={removeFile}>Remove</button>
-            </div>
+            </>
             }
             <input id="fileInput" type="file" name="file" onChange={handleFileChange}/>
             <input id="passkeyInput" type="text" name="passkey" onChange={updatePasskey} value={passkey} placeholder="Passkey"/>
-            <button onClick={handleSubmit}>Upload</button> 
-        </div>
+            <button className="mainButton" onClick={handleSubmit}>Upload</button> 
+        </form>
     )
 }
 

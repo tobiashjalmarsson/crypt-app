@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import LoginRegistration     from './views/LoginRegistration';
+import NavBarComponent from './components/NavBarComponent/NavBarComponent';
 import UploadComponent from './components/UploadComponent/UploadComponent';
 import {
     BrowserRouter as Router,
@@ -12,11 +13,13 @@ function App() {
   return (
     <Router>
         <div className="App">
+            <NavBarComponent />
+            <div className="mainContainer">
             <Routes>
-                {/*Add startpage*/}
-                <Route path="/" element={<LoginRegistration />}/>
+                <Route path="/login" element={<LoginRegistration />}/>
                 <Route path="/upload" element={<UploadComponent />} />
             </Routes>
+            </div>
         </div>
     </Router>
   );

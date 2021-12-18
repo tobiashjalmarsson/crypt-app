@@ -1,5 +1,6 @@
 import React, {FC, useState} from 'react'
 import './styles.scss'
+import '../../index.scss'
 import {APICallRegister} from './api'
 
 interface LoginProps {
@@ -55,22 +56,18 @@ const RegisterComponent: FC<LoginProps> = ({login, setLogin}) => {
     }
 
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <h2>Register</h2>
-                    <p>Already have an account?<button id="changeLogin" onClick={handleClick}>Login</button></p>
-                </div>
+            <form className="loginForm" onSubmit={handleSubmit}>
+                <h2>Register</h2>
+                <p>Already have an account?<button id="changeLogin" onClick={handleClick}>Login</button></p>
                 <input type="text" placeholder="username" onChange={handleChange} value={user.username} name="username" />
                 <input type="text" placeholder="password" onChange={handleChange} value={user.password} name="password" />
                 <input type="text" placeholder="repeat password" onChange={handleChange} value={user.passwordRepeat} name="passwordRepeat" />
-                <button type="submit">Register</button>
+                <button className="mainButton" type="submit">Register</button>
                 {(error === RegError.MatchPassword) && <p>{RegError.MatchPassword}</p>}
                 {(error === RegError.EnterUsername) && <p>{RegError.EnterUsername}</p>}
                 {(error === RegError.EnterPassword) && <p>{RegError.EnterPassword}</p>}
                 {(error === RegError.Username) && <p>{RegError.Username}</p>}
             </form>
-        </div>
     )
 }
 

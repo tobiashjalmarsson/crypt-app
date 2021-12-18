@@ -1,14 +1,19 @@
-form {
+.loginForm {
     display: flex;
     flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5%;
+    width: fit-content;
+    margin: 10% auto;
 }
 
-input {
+.loginForm > input {
     text-indent: 2%;
-    margin: 2% 0;
+    margin: 0 0;
     height: 4vh;
     border-radius: 10px;
-    border: none;
+    border: 1px solid black;
     @media (min-width: 600px) {
         height: 5vh;
         width: 20vw;
@@ -16,27 +21,8 @@ input {
     }
 }
 
-div {
-    margin: 0 auto;
-    width: 90%;
-    padding: 5% 0;
-    @media (min-width: 600px) {
-        width: 60vw;
-    }
-}
 
-button {
-    margin: 0 auto;
-    height: 3vh;
-    width: 80%;
-    background: white;
-    border: none;
-    border-radius: 15px;
-    @media (min-width: 600px){
-        height: 5vh;
-        width: 10vw;
-    }
-}
+
 
 #changeLogin {
     border: none;

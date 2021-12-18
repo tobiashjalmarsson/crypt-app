@@ -1,13 +1,24 @@
+$darkColor: #062F4F;
+$lightColor: #2969cf;
+$offWhite: #edf3fc;
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    padding: 0 0;
+    margin: 0 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.mainButton {
+    background-color: $darkColor;
+    color: white;
+    font-size: 16px;
+    margin: 0 auto;
+    height: 3vh;
+    width: 80%;
+    border: none;
+    border-radius: 15px;
+    @media (min-width: 600px){
+        height: 5vh;
+        width: 10vw;
+    }
 }
+

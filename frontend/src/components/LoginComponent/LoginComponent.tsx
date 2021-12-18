@@ -1,6 +1,7 @@
 import React, {FC, useState} from 'react'
 import {APICallLogin} from './api'
 import './styles.scss'
+import '../../index.scss'
 
 interface LoginProps {
     login: boolean,
@@ -31,18 +32,16 @@ const LoginComponent: FC<LoginProps> = ({login, setLogin}) => {
         })
     }
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
+            <form className="loginForm" onSubmit={handleSubmit}>
                 <div>
                     <h2>Login</h2>
                     <p id="navigateP" onClick={handleClick}>Don't Have an account? Register!</p>
                 </div>
                 <input name="email" type="text" placeholder="Email" onChange={handleChange} value={user.email}/>
                 <input name="password" type="text" placeholder="Password" onChange={handleChange} value={user.password}/>
-                <button type="submit">Log In</button>
+                <button className="mainButton" type="submit">Log In</button>
                 {error && <p>Invalid Information</p>}
             </form>
-        </div>
     )
 }
 

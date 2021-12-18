@@ -14,6 +14,7 @@ import (
 	"github/tobiashjalmarsson/crypt-app/service"
 
 	"github.com/gin-gonic/gin"
+
 )
 
 // Variables for controllers.auth
@@ -38,8 +39,12 @@ func ValidateToken(c *gin.Context){
     parsedHeader := strings.Fields(authHeader[0])[1]
     fmt.Println("Header is: ", authHeader)
     fmt.Println("Header content is: ", parsedHeader)
-    claims, err := service.ValidateToken(parsedHeader)
+    claims, uid,err := service.ValidateToken(parsedHeader)
+    fmt.Println("ERROR IS :", err)
+    fmt.Println("UID is: ", uid)
     if err != nil {
+        // IF error is not nil, break
+        // else continue as authorized
         fmt.Println("Error: ", err.Error())
     } else {
         fmt.Println("Claims are: ", claims)

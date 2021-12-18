@@ -1,14 +1,30 @@
-.mainContainer{
+.uploadForm {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 5%;
+    margin: 10% auto;
+    height: fit-content;
 }
 
 #fileInput {
-    margin-right: 15vw;
+    height: 4vh;
 }
 
 #passkeyInput {
-    width: 15vw;
+    text-indent: 2%;
+    margin-top: 50px;
+    height: 4vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    @media (min-width: 600px) {
+        height: 5vh;
+        width: 20vw;
+        margin: 1vh auto;
+    }
 }
+
+

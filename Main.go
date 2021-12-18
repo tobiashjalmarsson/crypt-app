@@ -1,6 +1,7 @@
 package main
 
 import (
+    "github/tobiashjalmarsson/crypt-app/middleware"
 	"github/tobiashjalmarsson/crypt-app/controllers"
 	"github/tobiashjalmarsson/crypt-app/models"
 	"net/http"
@@ -42,6 +43,15 @@ func main() {
         userGroup.POST("", controllers.CreateUser)
         userGroup.PATCH("/:id", controllers.UpdateUser)
         userGroup.DELETE("/:id", controllers.DeleteUser)
+    }
+
+    // Files routes
+    filesGroup := r.Group("files")
+    filesGroup.Use(middleware.AuthenticateUser())
+    {
+        filesGroup.GET("", controllers.GetFiles)
+        filesGroup.POST("", controllers.AddFiles)
+        filesGroup.DELETE("/:id", controllers.DeleteFile)
     }
 
 	// Login routes
