@@ -1,15 +1,11 @@
 package models
 
-import (
-    "fmt"
-)
 
 
 type User struct {
-	ID       uint   `json:"id" gorm"primary_key`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-    Files   []File
+    ID       uint   `json:"id" gorm:"primary_key;auto_increment"`
+    Email    string `json:"email" gorm:"type:varchar()"`
+	Password string `json:"password" gorm:"type:varchar()"`
 }
 
 type CreateUserInput struct {
@@ -22,13 +18,14 @@ type UpdateUserInput struct {
 	Password string `json:"password"`
 }
 
-func (u *User) removeFileById(id uint){
-    fmt.Println("Removing file")
-    for _, file := range u.Files {
-        fmt.Println("File with id: ", file.ID)
-    }
+type File struct {
+    ID      uint `json:"id" gorm:"primary_key;auto_increment"`
+    UserID  int `json:"-"`
+    Content string `json:"content" gorm:"type:varchar()"`
+    Owner   User `json:"owner" binding:"required" gorm:"foreignkey:UserID"`
 }
 
-func (u *User) addFile(file File){
-    u.Files = append(u.Files, file)
+type CreateFileInput struct {
+    Content string `json:"content" binding:"required"`
 }
+
